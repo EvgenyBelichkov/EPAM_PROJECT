@@ -1,0 +1,17 @@
+name: CI
+on: push
+jobs:
+  code_quality:
+    runs-on: ubuntu-latest
+    name: Checks with black, isort, flake8
+    container: python:3.9
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Run script
+        run: |
+          pip install black isort flake8
+          ls -la
+          black --check .
+          isort --check .
+          flake8 --check .
