@@ -14,4 +14,4 @@ jobs:
           ls -la
           black --check .
           isort --check .
-          flake8 --check .
+          flake8 .
