@@ -1,10 +1,10 @@
-Final project after educational curse 'Python spring 2021'.
+Final project after educational course 'Python spring 2021'.
 
 The main idea of the final project is to develop a web service, that can show current weather conditions selected by the user city.
 
 On the main page of the website, the user needs to input the required city and after that whether condition would be shown on another page.
 
-Requirements for the project:
+Implementation details:
 
 1) information about whether should be got from two different API services. Total result counting as average.
 2) for visualization results possible use a template. Write frontend (html and css) is an advantage.
