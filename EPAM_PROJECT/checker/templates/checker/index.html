@@ -1,0 +1,23 @@
+{% extends 'checker/main.html' %}
+
+
+{% block title %}Main page{% endblock %}
+
+{% block content %}
+    <div class="container background2">
+        <div class="box5">
+            <div class="mission">AFTER RAIN COMES FAIR WEATHER</div>
+            <div class="mission1">CHECK WEATHER NOW TO BE READY</div>
+        </div>
+    </div>
+    <div class="container background">
+        <div class="box5">
+            <div class="logo1">Let's check current weather data </div>
+            <form id="check" action="{% url 'weather' %}" class="box6">
+                <label for="city_name" style="font-weight: 500">Input name of city</label>
+                <input type="text" placeholder="Moscow" id="city_name" required name="request_city"><br>
+                <input type="submit" value="send" style="font-weight: bold" class="btn btn-outline-dark">
+            </form>
+        </div>
+    </div>
+{% endblock %}
