@@ -14,7 +14,6 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
-from checker.views import page_not_found
 from django.contrib import admin
 from django.urls import include, path
 
@@ -23,4 +22,5 @@ urlpatterns = [
     path("", include("checker.urls")),
 ]
 
-handler404 = page_not_found
+handler404 = "checker.views.page_not_found"
+handler500 = "checker.views.page_not_found_500"

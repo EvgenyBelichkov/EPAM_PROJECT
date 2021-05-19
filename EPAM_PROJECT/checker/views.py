@@ -11,30 +11,37 @@ from .models import WeatherStory
 
 
 def main(request):
+    """This function showing the main page of the website"""
     return render(request, "checker/index.html")
 
 
 def contacts(request):
+    """The function represent contact information about developer"""
     return render(request, "checker/contacts.html")
 
 
 def checking_city_in_database(city_name):
+    """The function checks information about the requested
+    city in the database"""
     return WeatherStory.objects.filter(city_name=city_name).values()
 
 
-def checking_city_in_database_test(city_name):
-    return WeatherStory.objects.filter(city_name=city_name)
-
-
 def insert_row(weather_dict):
+    """The function that inserts information about the city
+    in the database if there is no information"""
     WeatherStory.objects.create(**weather_dict)
 
 
 def update_row(city_name, weather_dict):
+    """The function that updated information about the city
+    in the database, if information not actual"""
     WeatherStory.objects.filter(city_name=city_name).update(**weather_dict)
 
 
 def get_weather_from_first_api(requested_city):
+    """Taking information about the weather in the requested
+     city using API service 'weatherbit'. The function returns
+    information in dictionary"""
     first_api_url = "https://api.weatherbit.io/v2.0/current"
     params_for_first_api = {
         "city": requested_city,
@@ -53,6 +60,9 @@ def get_weather_from_first_api(requested_city):
 
 
 def get_weather_from_second_api(requested_city):
+    """Taking information about the weather in the requested
+    city using API service 'openweathermap'. The function returns
+    information in dictionary"""
     second_api_url = "http://api.openweathermap.org/data/2.5/weather"
     params_for_second_api = {
         "q": requested_city,
@@ -71,6 +81,7 @@ def get_weather_from_second_api(requested_city):
 
 
 def union_api1_api2(requested_city, api1, api2):
+    """The function union results from two different API services"""
     result_dict = {key: round((api1[key] + api2[key]) / 2, 2) for key in api1}
     result_dict["city_name"] = requested_city
     result_dict["time_created"] = datetime.datetime.now()
@@ -78,6 +89,15 @@ def union_api1_api2(requested_city, api1, api2):
 
 
 def weather(request):
+    """The function getting request from client (requested city)
+    and collecting information in the next algorithm
+    1) Checking city in database. If the city is in the database - the
+     function checks relevance weather information. If not - getting
+      repeated request;
+    2) If the city isn't in database - function getting request;
+    3) If information about the requested city is relevant in the
+     database - client would get the weather from the database.
+    """
     requested_city = request.GET.get("request_city")
     city_check = checking_city_in_database(requested_city)
 
@@ -103,8 +123,10 @@ def weather(request):
 
 
 def completed_requests(request):
+    """Function that represents all complited requests on web-site.
+    User would see last n results, that regulated in local settings."""
     cities_list = WeatherStory.objects.all()
-    paginator = Paginator(cities_list, 4)
+    paginator = Paginator(cities_list, settings.NUMBER)
     page_number = request.GET.get("page")
     try:
         page_cities = paginator.page(page_number)
@@ -119,3 +141,7 @@ def completed_requests(request):
 
 def page_not_found(request, exception):
     return render(request, "checker/404.html")
+
+
+def page_not_found_500(request):
+    return render(request, "checker/500.html")
