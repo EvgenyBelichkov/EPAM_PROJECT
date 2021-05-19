@@ -6,18 +6,18 @@
 {% block content %}
     <div class="container background2">
         <div class="box7 mission1">
-            <div style="font-weight: 700; width: 70%" class="box8"> {{ name }} </div>
+            <div style="font-weight: 700; width: 70%" class="box8"> {{ city_name }} </div>
             <div class="widthresult box8">Temperature</div>
-            {% if main.temp > 0 %}
-                <div class="widthresult box8"> +{{ temp }} ℃</div>
+            {% if current_temperature > 0 %}
+                <div class="widthresult box8"> +{{ current_temperature }} ℃</div>
             {% else %}
-                <div class="widthresult box8"> +{{ temp }} ℃</div>
+                <div class="widthresult box8"> -{{ current_temperature }} ℃</div>
             {% endif %}
             <div class="widthresult box8"> Feels like </div>
-            {% if feels_like > 0 %}
-                <div class="widthresult box8"> +{{ feels_like }} ℃</div>
+            {% if feels_like_temperature > 0 %}
+                <div class="widthresult box8"> +{{ feels_like_temperature }} ℃</div>
             {% else %}
-                <div class="widthresult box8"> {{ feels_like }} ℃</div>
+                <div class="widthresult box8"> -{{ feels_like_temperature }} ℃</div>
             {% endif %}
             <div class="widthresult box8"> Wind speed </div>
             <div class="widthresult box8"> {{ wind_speed }} m/sec </div>
@@ -25,6 +25,7 @@
         <div class="box4">
             <a href="{% url 'main' %}" class="btn btn-outline-light">MAIN PAGE</a>
         </div>
+    </div>
 
 
 {% endblock %}

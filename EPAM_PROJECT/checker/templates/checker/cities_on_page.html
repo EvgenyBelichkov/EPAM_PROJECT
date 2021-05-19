@@ -1,0 +1,36 @@
+{% extends 'checker/main.html' %}
+{% load static %}
+
+{% block title %}Previously requested cities{% endblock %}
+
+{% block content %}
+
+    <div class="container background2">
+        <div class="box7 mission1">
+            <div style="font-weight: 700; width: 70%" class="box8"> Previously requested cities </div>
+            {% for city in page_cities %}
+            <div style="width: 70%" class="box8"> {{ city }} </div>
+            {% endfor %}
+        </div>
+        <p class="box7">
+            {% if page_cities.has_previous %}
+                <a href="?page={{ page_cities.previous_page_number }}" style="color: white" class="nav-link">previous</a>
+            {% endif %}
+
+            <span class="box10">
+                Page {{ page_cities.number }} of {{ page_cities.paginator.num_pages }}
+            </span>
+
+            {% if page_cities.has_next %}
+                <a href="?page={{ page_cities.next_page_number }}" style="color: white" class="nav-link">next</a>
+            {% endif %}
+        </p>
+
+        <div class="box4">
+        <a href="{% url 'main' %}" class="btn btn-outline-light">MAIN PAGE</a>
+        </div>
+
+
+    </div>
+
+{% endblock %}
