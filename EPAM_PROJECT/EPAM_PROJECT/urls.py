@@ -20,4 +20,7 @@ from django.urls import include, path
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("checker.urls")),
-]  # noqa
+]
+
+handler404 = "checker.views.page_not_found"
+handler500 = "checker.views.page_not_found_500"
